@@ -15,13 +15,18 @@ function preload() {
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
   personagemPrincipal=createSprite(100,height-100)
+  personagemPrincipal.shapeColor="blue"
   enimes=new Group()
 }
 
 function draw() {
   background("white");
-  drawSprites()
+  move()
   drawEnimes()
+  personagemPrincipal.velocityX=100
+  //camera.position.x=personagemPrincipal.x
+  //camera.position.y=personagemPrincipal.y
+  drawSprites()
 }
 
 function windowResized() {
@@ -35,4 +40,19 @@ enime.shapeColor="red"
 enime.velocityX=-2
 enimes.add(enime)
 }
+}
+  function move(){
+if(keyIsDown(UP_ARROW)){
+personagemPrincipal.y-=1
+console.log("funcionou")
+}
+if(keyIsDown(DOWN_ARROW)){
+personagemPrincipal.y+=1
+ }
+ if(keyIsDown(LEFT_ARROW)){
+personagemPrincipal.x-=1
+}if(keyIsDown(RIGHT_ARROW)){
+  personagemPrincipal.x+=1
+  }
+
 }
