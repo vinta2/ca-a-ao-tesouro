@@ -6,12 +6,18 @@ var life,lifeIMG;
 var personagemPrincipal, personagemPrincipalIMG, personagem;
 var enimes;
 var fundo, fundo2;
+var lapis,lapisIMG
+var x,xIMG
+var papel,papelIMG
 
 function preload() {
   coinIMG=loadImage("./assets/goldCoin.png");
   lifeIMG=loadImage("./assets/life.png");
-  backgroundIMG=loadImage("./assets/fundo1.png");
+  backgroundIMG=loadImage("./assets/fundo10.png");
   personagemPrincipalIMG=loadImage("./assets/menino.gif");
+  xIMG=loadImage("./assets/x.jpg");
+  papelIMG=loadImage("./assets/papel.png");
+  lapisIMG=loadImage("./assets/lapis.jpg");
 }
 
 function setup() {
@@ -24,7 +30,19 @@ function setup() {
   personagemPrincipal=createSprite(100,100);
   personagemPrincipal.shapeColor="blue";
   personagemPrincipal.addImage(personagemPrincipalIMG);
-  personagemPrincipal.scale = 5;
+  personagemPrincipal.scale = 2;
+
+  x=createSprite(1270,-1480)
+  x.addImage(xIMG)
+  x.scale=0.1
+
+  lapis=createSprite(-1800,-380)
+  lapis.addImage(lapisIMG)
+  lapis.scale=0.1
+
+  papel=createSprite(2150,3160)
+  papel.addImage(papelIMG)
+  papel.scale=0.01
 
   personagem=createSprite(500,500);
   personagem.shapeColor="purple";
@@ -37,10 +55,15 @@ function draw() {
  
   move()
   drawEnimes()
+  coletar(x)
+  coletar(lapis)
+  coletar(papel)
   
   camera.position.x=personagemPrincipal.x
   camera.position.y=personagemPrincipal.y
   drawSprites()
+  console.log(personagemPrincipal.x)
+  console.log(personagemPrincipal.y)
 }
 
 function drawEnimes(){
@@ -66,5 +89,9 @@ personagemPrincipal.x-=10
 }if(keyIsDown(RIGHT_ARROW)){
   personagemPrincipal.x+=10
   }
-
+}
+function coletar(sprite){
+personagemPrincipal.overlap(sprite,function(collector,collected){
+collected.remove();
+})
 }
