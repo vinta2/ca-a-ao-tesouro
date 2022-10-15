@@ -15,9 +15,9 @@ function preload() {
   lifeIMG=loadImage("./assets/life.png");
   backgroundIMG=loadImage("./assets/fundo10.png");
   personagemPrincipalIMG=loadImage("./assets/menino.gif");
-  xIMG=loadImage("./assets/x.jpg");
+  xIMG=loadImage("./assets/x.png");
   papelIMG=loadImage("./assets/papel.png");
-  lapisIMG=loadImage("./assets/lapis.jpg");
+  lapisIMG=loadImage("./assets/lapis.png");
 }
 
 function setup() {
@@ -32,26 +32,26 @@ function setup() {
   personagemPrincipal.addImage(personagemPrincipalIMG);
   personagemPrincipal.scale = 2;
 
-  x=createSprite(1270,-1480)
-  x.addImage(xIMG)
-  x.scale=0.1
+  x=createSprite(1270,-1480);
+  x.addImage(xIMG);
+  x.scale=0.6;
 
-  lapis=createSprite(-1800,-380)
-  lapis.addImage(lapisIMG)
-  lapis.scale=0.1
+  lapis=createSprite(-1800,-380);
+  lapis.addImage(lapisIMG);
+  lapis.scale=0.1;
 
-  papel=createSprite(2150,3160)
-  papel.addImage(papelIMG)
-  papel.scale=0.01
+  papel=createSprite(2150,3160);
+  papel.addImage(papelIMG);
+  papel.scale=0.3;
 
-  personagem=createSprite(500,500);
-  personagem.shapeColor="purple";
   enimes=new Group();
 
 }
 
 function draw() {
   background("gray");
+
+  image(personagemPrincipalIMG, 500, 500,100,100);
  
   move()
   drawEnimes()
@@ -77,19 +77,20 @@ enimes.add(enime);
 }
 
 function move(){
-if(keyIsDown(UP_ARROW)){
+if(keyIsDown(UP_ARROW) && personagemPrincipal.y > -2260){
 personagemPrincipal.y-=10
 console.log("funcionou")
 }
-if(keyIsDown(DOWN_ARROW)){
+if(keyIsDown(DOWN_ARROW) && personagemPrincipal.y < 3200){
 personagemPrincipal.y+=10
  }
- if(keyIsDown(LEFT_ARROW)){
+ if(keyIsDown(LEFT_ARROW) && personagemPrincipal.x > 1650){
 personagemPrincipal.x-=10
-}if(keyIsDown(RIGHT_ARROW)){
+}if(keyIsDown(RIGHT_ARROW) && personagemPrincipal.x < 3170){
   personagemPrincipal.x+=10
   }
 }
+
 function coletar(sprite){
 personagemPrincipal.overlap(sprite,function(collector,collected){
 collected.remove();
