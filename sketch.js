@@ -9,6 +9,7 @@ var fundo, fundo2;
 var lapis,lapisIMG
 var x,xIMG
 var papel,papelIMG
+var pirata1,pirata2,pirata3
 
 function preload() {
   coinIMG=loadImage("./assets/goldCoin.png");
@@ -18,6 +19,9 @@ function preload() {
   xIMG=loadImage("./assets/x.png");
   papelIMG=loadImage("./assets/papel.png");
   lapisIMG=loadImage("./assets/lapis.png");
+  pirata1=loadImage("/assets/pirata_inimigo.gif")
+  pirata2=loadImage("/assets/pirata_inimigo2.gif")
+  pirata3=loadImage("/assets/pirata_inimigo3.gif")
 }
 
 function setup() {
@@ -36,7 +40,7 @@ function setup() {
   x.addImage(xIMG);
   x.scale=0.6;
 
-  lapis=createSprite(-1800,-380);
+  lapis=createSprite(-1000,-380);
   lapis.addImage(lapisIMG);
   lapis.scale=0.1;
 
@@ -70,21 +74,35 @@ function drawEnimes(){
 if(frameCount%200===0){
 var enime;
 enime =createSprite(width-100,height-100);
-enime.shapeColor="red";
+enime.scale=1.5
 enime.velocityX=-2;
 enimes.add(enime);
+var rand=Math.round(random(1,3))
+switch(rand){
+case 1:enime.addImage(pirata1);
+break;
+
+case 2:enime.addImage(pirata2);
+break;
+
+case 3:enime.addImage(pirata3);
+break;
+
+default:
+break;
+}
 }
 }
 
 function move(){
-if(keyIsDown(UP_ARROW) && personagemPrincipal.y > -2260){
+if(keyIsDown(UP_ARROW) && personagemPrincipal.y > -2220){
 personagemPrincipal.y-=10
 console.log("funcionou")
 }
 if(keyIsDown(DOWN_ARROW) && personagemPrincipal.y < 3200){
 personagemPrincipal.y+=10
  }
- if(keyIsDown(LEFT_ARROW) && personagemPrincipal.x > 1650){
+ if(keyIsDown(LEFT_ARROW) && personagemPrincipal.x > -1270){
 personagemPrincipal.x-=10
 }if(keyIsDown(RIGHT_ARROW) && personagemPrincipal.x < 3170){
   personagemPrincipal.x+=10
