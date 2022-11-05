@@ -10,6 +10,8 @@ var lapis,lapisIMG
 var x,xIMG
 var papel,papelIMG
 var pirata1,pirata2,pirata3
+var marcador=0
+var mapaIMG,mapa
 
 function preload() {
   coinIMG=loadImage("./assets/goldCoin.png");
@@ -19,9 +21,10 @@ function preload() {
   xIMG=loadImage("./assets/x.png");
   papelIMG=loadImage("./assets/papel.png");
   lapisIMG=loadImage("./assets/lapis.png");
-  pirata1=loadImage("/assets/pirata_inimigo.gif")
-  pirata2=loadImage("/assets/pirata_inimigo2.gif")
-  pirata3=loadImage("/assets/pirata_inimigo3.gif")
+  pirata1=loadImage("./assets/pirata_inimigo.gif")
+  pirata2=loadImage("./assets/pirata_inimigo2.gif")
+  pirata3=loadImage("./assets/pirata_inimigo3.gif")
+  mapaIMG=loadImage("./assets/mapa.png")
 }
 
 function setup() {
@@ -62,20 +65,37 @@ function draw() {
   coletar(x)
   coletar(lapis)
   coletar(papel)
+  console.log("marcador"+marcador)
+  if(marcador===3){
+mapa=createSprite(860,400)
+mapa.addImage("map",mapaIMG)
+mapa.scale=0.05
+  }
   
   camera.position.x=personagemPrincipal.x
   camera.position.y=personagemPrincipal.y
   drawSprites()
-  console.log(personagemPrincipal.x)
-  console.log(personagemPrincipal.y)
+ // console.log(personagemPrincipal.x)
+  //console.log(personagemPrincipal.y)
 }
 
 function drawEnimes(){
-if(frameCount%200===0){
+if(frameCount%400===0){
 var enime;
-enime =createSprite(width-100,height-100);
-enime.scale=1.5
-enime.velocityX=-2;
+enime =createSprite(Math.round(random(-1270,3170)),Math.round(random(-2220,3200)));
+enime.scale=2.5
+if(personagemPrincipal.x>0){
+enime.velocityX=2
+}
+else{
+enime.velocityX=-2
+}
+if(personagemPrincipal.y>0){
+  enime.velocityY=2
+  }
+  else{
+  enime.velocityY=-2
+  }
 enimes.add(enime);
 var rand=Math.round(random(1,3))
 switch(rand){
@@ -112,5 +132,6 @@ personagemPrincipal.x-=10
 function coletar(sprite){
 personagemPrincipal.overlap(sprite,function(collector,collected){
 collected.remove();
+marcador+=1
 })
 }
